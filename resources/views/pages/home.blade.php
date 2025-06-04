@@ -50,7 +50,7 @@
                 <div class="mt-6">
                     <a href="{{ url('/company-profile') }}"
                         class="inline-block bg-red-600 hover:bg-white hover:text-red-600 border border-red-600
-                                                                                                                                        text-white font-semibold px-6 py-3 rounded-lg transition duration-300">
+                                                                                                                                            text-white font-semibold px-6 py-3 rounded-lg transition duration-300">
                         Lihat Company Profile
                     </a>
                 </div>
@@ -162,7 +162,7 @@
         </div>
     </section>
 
-    {{-- Produk Section --}}
+    <!-- Produk Section -->
     <section id="produkhome">
         <div class="px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
             <div class="max-w-screen-xl mx-auto">
@@ -174,21 +174,86 @@
                 </header>
 
                 <ul class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                    <!-- Produk 1 -->
+                    <!-- Produk Loop -->
+                    <script>
+                        const produkList = [
+                            {
+                                nama: 'Robot Toy',
+                                harga: '$14.99',
+                                gambar: [
+                                    'https://images.unsplash.com/photo-1599481238640-4c1288750d7a',
+                                    'https://images.unsplash.com/photo-1600607689460-0165fbdc540c',
+                                    'https://images.unsplash.com/photo-1618071148390-7a8bb22fbe9d',
+                                    'https://images.unsplash.com/photo-1619980297172-57f5acb2e0a9'
+                                ]
+                            },
+                            {
+                                nama: 'Action Figure',
+                                harga: '$24.99',
+                                gambar: [
+                                    'https://images.unsplash.com/photo-1578898887884-5dc2c21b4c50',
+                                    'https://images.unsplash.com/photo-1606813909949-0fdf93fdb5b1',
+                                    'https://images.unsplash.com/photo-1621421272115-6234cc057c47',
+                                    'https://images.unsplash.com/photo-1621421139633-7a9ed8f38a09'
+                                ]
+                            },
+                            {
+                                nama: 'Wooden Puzzle',
+                                harga: '$9.99',
+                                gambar: [
+                                    'https://images.unsplash.com/photo-1581091870622-50d6b9ad46e5',
+                                    'https://images.unsplash.com/photo-1585421514284-efb74c2b7c28',
+                                    'https://images.unsplash.com/photo-1579208575657-c595a05383b7',
+                                    'https://images.unsplash.com/photo-1598454449402-f9ce7cf49ac3'
+                                ]
+                            },
+                            {
+                                nama: 'Plush Teddy',
+                                harga: '$19.99',
+                                gambar: [
+                                    'https://images.unsplash.com/photo-1606813879274-154bf0c98bfb',
+                                    'https://images.unsplash.com/photo-1513258496099-48168024aec0',
+                                    'https://images.unsplash.com/photo-1592194996308-7b43878e84a6',
+                                    'https://images.unsplash.com/photo-1549921296-3a532e3f70f8'
+                                ]
+                            }
+                        ];
+                    </script>
+
+                    <!-- Manual Hardcode Loop -->
+                    <!-- Produk 0 -->
                     <li>
                         <div class="group relative block overflow-hidden border border-gray-100 bg-white">
                             <div class="aspect-square w-full overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1599481238640-4c1288750d7a?auto=format&fit=crop&w=2664&q=80"
-                                    alt="Robot Toy"
+                                <img src="https://images.unsplash.com/photo-1599481238640-4c1288750d7a" alt="Robot Toy"
                                     class="w-full h-full object-cover transition duration-500 group-hover:scale-105" />
                             </div>
                             <div class="p-6">
                                 <h3 class="mt-4 text-lg font-medium text-gray-900">Robot Toy</h3>
                                 <p class="mt-1.5 text-sm text-gray-700">$14.99</p>
                                 <div class="mt-4">
-                                    <button
-                                        class="block w-full rounded-sm bg-white p-3 text-red-600 text-md font-medium transition hover:bg-red-600 hover:text-white border border-red-600"
-                                        onclick="document.getElementById('modal').classList.remove('hidden')">
+                                    <button onclick="openModal(0)"
+                                        class="block w-full rounded-sm bg-white p-3 text-red-600 text-md font-medium transition hover:bg-red-600 hover:text-white border border-red-600">
+                                        Preview
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- Produk 1 -->
+                    <li>
+                        <div class="group relative block overflow-hidden border border-gray-100 bg-white">
+                            <div class="aspect-square w-full overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1578898887884-5dc2c21b4c50" alt="Action Figure"
+                                    class="w-full h-full object-cover transition duration-500 group-hover:scale-105" />
+                            </div>
+                            <div class="p-6">
+                                <h3 class="mt-4 text-lg font-medium text-gray-900">Action Figure</h3>
+                                <p class="mt-1.5 text-sm text-gray-700">$24.99</p>
+                                <div class="mt-4">
+                                    <button onclick="openModal(1)"
+                                        class="block w-full rounded-sm bg-white p-3 text-red-600 text-md font-medium transition hover:bg-red-600 hover:text-white border border-red-600">
                                         Preview
                                     </button>
                                 </div>
@@ -200,17 +265,15 @@
                     <li>
                         <div class="group relative block overflow-hidden border border-gray-100 bg-white">
                             <div class="aspect-square w-full overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1599481238640-4c1288750d7a?auto=format&fit=crop&w=2664&q=80"
-                                    alt="Robot Toy"
+                                <img src="https://images.unsplash.com/photo-1581091870622-50d6b9ad46e5" alt="Wooden Puzzle"
                                     class="w-full h-full object-cover transition duration-500 group-hover:scale-105" />
                             </div>
                             <div class="p-6">
-                                <h3 class="mt-4 text-lg font-medium text-gray-900">Robot Toy</h3>
-                                <p class="mt-1.5 text-sm text-gray-700">$14.99</p>
+                                <h3 class="mt-4 text-lg font-medium text-gray-900">Wooden Puzzle</h3>
+                                <p class="mt-1.5 text-sm text-gray-700">$9.99</p>
                                 <div class="mt-4">
-                                    <button
-                                        class="block w-full rounded-sm bg-white p-3 text-red-600 text-md font-medium transition hover:bg-red-600 hover:text-white border border-red-600"
-                                        onclick="alert('Preview tidak tersedia di versi statis')">
+                                    <button onclick="openModal(2)"
+                                        class="block w-full rounded-sm bg-white p-3 text-red-600 text-md font-medium transition hover:bg-red-600 hover:text-white border border-red-600">
                                         Preview
                                     </button>
                                 </div>
@@ -222,39 +285,15 @@
                     <li>
                         <div class="group relative block overflow-hidden border border-gray-100 bg-white">
                             <div class="aspect-square w-full overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1599481238640-4c1288750d7a?auto=format&fit=crop&w=2664&q=80"
-                                    alt="Robot Toy"
+                                <img src="https://images.unsplash.com/photo-1606813879274-154bf0c98bfb" alt="Plush Teddy"
                                     class="w-full h-full object-cover transition duration-500 group-hover:scale-105" />
                             </div>
                             <div class="p-6">
-                                <h3 class="mt-4 text-lg font-medium text-gray-900">Robot Toy</h3>
-                                <p class="mt-1.5 text-sm text-gray-700">$14.99</p>
+                                <h3 class="mt-4 text-lg font-medium text-gray-900">Plush Teddy</h3>
+                                <p class="mt-1.5 text-sm text-gray-700">$19.99</p>
                                 <div class="mt-4">
-                                    <button
-                                        class="block w-full rounded-sm bg-white p-3 text-red-600 text-md font-medium transition hover:bg-red-600 hover:text-white border border-red-600"
-                                        onclick="alert('Preview tidak tersedia di versi statis')">
-                                        Preview
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-                    <!-- Produk 4 -->
-                    <li>
-                        <div class="group relative block overflow-hidden border border-gray-100 bg-white">
-                            <div class="aspect-square w-full overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1599481238640-4c1288750d7a?auto=format&fit=crop&w=2664&q=80"
-                                    alt="Robot Toy"
-                                    class="w-full h-full object-cover transition duration-500 group-hover:scale-105" />
-                            </div>
-                            <div class="p-6">
-                                <h3 class="mt-4 text-lg font-medium text-gray-900">Robot Toy</h3>
-                                <p class="mt-1.5 text-sm text-gray-700">$14.99</p>
-                                <div class="mt-4">
-                                    <button
-                                        class="block w-full rounded-sm bg-white p-3 text-red-600 text-md font-medium transition hover:bg-red-600 hover:text-white border border-red-600"
-                                        onclick="alert('Preview tidak tersedia di versi statis')">
+                                    <button onclick="openModal(3)"
+                                        class="block w-full rounded-sm bg-white p-3 text-red-600 text-md font-medium transition hover:bg-red-600 hover:text-white border border-red-600">
                                         Preview
                                     </button>
                                 </div>
@@ -263,55 +302,127 @@
                     </li>
                 </ul>
 
-                <div class="flex flex-col items-center gap-3 mt-6">
-                    <a href="/produk"
-                        class="flex items-center justify-center text-white font-semibold bg-red-600 px-6 py-3 rounded-lg shadow-md hover:bg-white hover:text-red-600 border border-red-600 transition">
-                        <span class="mr-2">Selengkapnya</span>
-                    </a>
-                </div>
-
                 <!-- Modal Preview -->
                 <div id="modal" class="hidden fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
                     <div class="bg-white p-6 rounded-lg max-w-md w-full relative shadow-lg">
                         <button class="absolute top-2 right-2 text-gray-600 hover:text-red-600"
-                            onclick="document.getElementById('modal').classList.add('hidden')">
-                            ✕
-                        </button>
-                        <h2 class="text-xl font-bold mb-2">Robot Toy</h2>
+                            onclick="closeModal()">✕</button>
+                        <h2 id="modal-title" class="text-xl font-bold mb-2">Produk</h2>
 
-                        <div class="w-full aspect-square mb-3 rounded overflow-hidden relative">
-                            <img src="https://images.unsplash.com/photo-1599481238640-4c1288750d7a?auto=format&fit=crop&w=2664&q=80"
-                                alt="Robot Toy" class="w-full h-full object-cover" />
-
-                            <!-- Tombol navigasi gambar (non-fungsi di statis) -->
-                            <button
-                                class="absolute top-1/2 left-2 transform -translate-y-1/2 text-white text-3xl bg-black bg-opacity-50 hover:bg-opacity-75 rounded-full p-2"
-                                onclick="alert('Navigasi gambar tidak aktif di versi statis')">
+                        <div class="relative w-full aspect-square mb-3 rounded overflow-hidden">
+                            <img id="modal-image" src="" alt="Preview"
+                                class="w-full h-full object-cover transition-all duration-300" />
+                            <button onclick="prevImage()"
+                                class="absolute top-1/2 left-2 transform -translate-y-1/2 text-white text-3xl bg-black bg-opacity-50 hover:bg-opacity-75 rounded-full p-2">
                                 &lt;
                             </button>
-                            <button
-                                class="absolute top-1/2 right-2 transform -translate-y-1/2 text-white text-3xl bg-black bg-opacity-50 hover:bg-opacity-75 rounded-full p-2"
-                                onclick="alert('Navigasi gambar tidak aktif di versi statis')">
+                            <button onclick="nextImage()"
+                                class="absolute top-1/2 right-2 transform -translate-y-1/2 text-white text-3xl bg-black bg-opacity-50 hover:bg-opacity-75 rounded-full p-2">
                                 &gt;
                             </button>
                         </div>
 
-                        <p class="text-gray-700 font-semibold">$14.99</p>
-                        <p class="text-sm text-gray-600 mt-2">
-                            Mainan robot canggih dan menyenangkan untuk anak-anak.
-                        </p>
+                        <p id="modal-price" class="text-gray-700 font-semibold">$0.00</p>
+                        <p class="text-sm text-gray-600 mt-2">Detail produk yang menarik dan berkualitas.</p>
 
                         <div class="mt-4">
-                            <a href="https://drive.google.com" target="_blank" rel="noopener noreferrer"
+                            <a href="https://drive.google.com" target="_blank"
                                 class="w-full text-center px-4 py-2 bg-red-600 text-white font-normal rounded-lg hover:bg-red-700 transition block">
                                 Lihat Lebih Banyak
                             </a>
                         </div>
                     </div>
                 </div>
+
+                <div class="flex flex-col items-center gap-3 mt-6">
+                    <a href="/produk"
+                        class="flex items-center justify-center text-white font-semibold bg-red-600 px-6 py-3 rounded-lg shadow-md hover:bg-white hover:text-red-600 border border-red-600 transition">
+                        <span class="mr-2">Selengkapnya</span>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
+
+    <!-- Script -->
+    <script>
+        const produk = [
+            {
+                nama: 'Robot Toy',
+                harga: '$14.99',
+                gambar: [
+                    'https://images.unsplash.com/photo-1599481238640-4c1288750d7a',
+                    'https://images.unsplash.com/photo-1600607689460-0165fbdc540c',
+                    'https://images.unsplash.com/photo-1618071148390-7a8bb22fbe9d',
+                    'https://images.unsplash.com/photo-1619980297172-57f5acb2e0a9'
+                ]
+            },
+            {
+                nama: 'Action Figure',
+                harga: '$24.99',
+                gambar: [
+                    'https://images.unsplash.com/photo-1578898887884-5dc2c21b4c50',
+                    'https://images.unsplash.com/photo-1606813909949-0fdf93fdb5b1',
+                    'https://images.unsplash.com/photo-1621421272115-6234cc057c47',
+                    'https://images.unsplash.com/photo-1621421139633-7a9ed8f38a09'
+                ]
+            },
+            {
+                nama: 'Wooden Puzzle',
+                harga: '$9.99',
+                gambar: [
+                    'https://images.unsplash.com/photo-1581091870622-50d6b9ad46e5',
+                    'https://images.unsplash.com/photo-1585421514284-efb74c2b7c28',
+                    'https://images.unsplash.com/photo-1579208575657-c595a05383b7',
+                    'https://images.unsplash.com/photo-1598454449402-f9ce7cf49ac3'
+                ]
+            },
+            {
+                nama: 'Plush Teddy',
+                harga: '$19.99',
+                gambar: [
+                    'https://images.unsplash.com/photo-1606813879274-154bf0c98bfb',
+                    'https://images.unsplash.com/photo-1513258496099-48168024aec0',
+                    'https://images.unsplash.com/photo-1592194996308-7b43878e84a6',
+                    'https://images.unsplash.com/photo-1549921296-3a532e3f70f8'
+                ]
+            }
+        ];
+
+        let currentImageIndex = 0;
+        let currentProductIndex = 0;
+
+        function openModal(index) {
+            currentProductIndex = index;
+            currentImageIndex = 0;
+
+            const modal = document.getElementById('modal');
+            const modalImage = document.getElementById('modal-image');
+            const modalTitle = document.getElementById('modal-title');
+            const modalPrice = document.getElementById('modal-price');
+
+            modalImage.src = produk[index].gambar[0];
+            modalTitle.innerText = produk[index].nama;
+            modalPrice.innerText = produk[index].harga;
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+        }
+
+        function nextImage() {
+            currentImageIndex = (currentImageIndex + 1) % produk[currentProductIndex].gambar.length;
+            document.getElementById('modal-image').src = produk[currentProductIndex].gambar[currentImageIndex];
+        }
+
+        function prevImage() {
+            currentImageIndex =
+                (currentImageIndex - 1 + produk[currentProductIndex].gambar.length) % produk[currentProductIndex].gambar.length;
+            document.getElementById('modal-image').src = produk[currentProductIndex].gambar[currentImageIndex];
+        }
+    </script>
 
     {{-- Portofolio Section --}}
     <section id="portofolio">
