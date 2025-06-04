@@ -2,8 +2,6 @@
 
 use App\Models\Produk;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
-Route::get('/', function () {
-    $produks = Produk::latest()->take(8)->get();
-    return view('pages.home', compact('produks'));
-});
+Route::get('/', [HomeController::class, 'index']);

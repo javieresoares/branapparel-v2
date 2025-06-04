@@ -34,11 +34,10 @@
             {{-- Teks di kiri --}}
             <div class="w-full lg:w-1/2 text-center lg:text-left">
                 <h2 class="text-3xl font-bold text-gray-900 mb-4">
-                    Tentang Kami
+                    {{ $tentangKami->judul_tentangkami ?? 'Judul default' }}
                 </h2>
                 <p class="text-gray-700 mb-4 leading-relaxed text-justify">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas repellendus quam ipsam inventore sunt
-                    qui nobis nemo quisquam soluta nesciunt?
+                    {{ $tentangKami->deskripsi_tentangkami ?? 'Deskripsi default' }}
                 </p>
                 <p class="text-gray-700 leading-relaxed text-justify mb-6">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis sunt, quam enim, voluptate id amet
@@ -58,7 +57,7 @@
 
             {{-- Gambar di kanan --}}
             <div class="w-full lg:w-1/2 mt-8 lg:mt-0">
-                <img src="{{ asset('assets/home1.jpg') }}" alt="Tentang Kami"
+                <img src="{{ asset('storage/' . $tentangKami->gambar_tentangkami) }}" alt="Tentang Kami"
                     class="w-full h-full object-cover shadow-lg rounded-lg" />
             </div>
         </div>
@@ -79,14 +78,16 @@
                 class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center">
 
                 <!-- Item 1 -->
-                <div
-                    class="bg-red-600 rounded-2xl text-center shadow-lg hover:shadow-xl transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 ease-in-out flex flex-col justify-center items-center w-full max-w-[250px] aspect-[1] p-6">
-                    <i class="fas fa-lightbulb text-white text-4xl mb-4"></i>
-                    <p class="text-lg font-semibold text-white">Inovatif</p>
-                    <p class="text-sm text-red-100 mt-2 leading-relaxed px-3">
-                        Kami selalu menghadirkan solusi kreatif dan berbeda.
-                    </p>
-                </div>
+                @foreach ($mengapaMemilih as $item)
+                    <div
+                        class="bg-red-600 rounded-2xl text-center shadow-lg hover:shadow-xl transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 ease-in-out flex flex-col justify-center items-center w-full max-w-[250px] aspect-[1] p-6">
+                        <i class="{{ $item->ikon_mengapamemilih }} text-white text-4xl mb-4"></i>
+                        <p class="text-lg font-semibold text-white">{{ $item->judul_mengapamemilih }}</p>
+                        <p class="text-sm text-red-100 mt-2 leading-relaxed px-3">
+                            {{ $item->teks_mengapamemilih }}
+                        </p>
+                    </div>
+                @endforeach
 
                 <!-- Item 2 -->
                 <div
@@ -184,7 +185,7 @@
                             </div>
                             <div class="p-6">
                                 <h3 class="mt-4 text-lg font-medium text-gray-900">Robot Toy</h3>
-                                <p class="mt-1.5 text-sm text-gray-700">$14.99</p>
+                                <p class="mt-1.5 text-sm text-gray-700">Start from $14.99</p>
                                 <div class="mt-4">
                                     <button
                                         class="block w-full rounded-sm bg-white p-3 text-red-600 text-md font-medium transition hover:bg-red-600 hover:text-white border border-red-600"
@@ -271,7 +272,7 @@
                 </div>
 
                 <!-- Modal Preview -->
-                <div id="modal" class="hidden fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
+                <div id="modal" class="hidden fixed flex inset-0 z-50 items-center justify-center backdrop-blur-sm">
                     <div class="bg-white p-6 rounded-lg max-w-md w-full relative shadow-lg">
                         <button class="absolute top-2 right-2 text-gray-600 hover:text-red-600"
                             onclick="document.getElementById('modal').classList.add('hidden')">
@@ -341,7 +342,8 @@
                                 aperiam ipsum!
                             </p>
 
-                            <a href="https://drive.google.com/your-file-link-here" target="_blank" rel="noopener noreferrer"
+                            <a href="https://drive.google.com/your-file-link-here" target="_blank"
+                                rel="noopener noreferrer"
                                 class="mt-3 inline-block bg-red-600 hover:bg-red-700 px-5 py-3 text-xs font-medium tracking-wide text-white uppercase rounded-lg">
                                 Lihat Detail
                             </a>
@@ -365,7 +367,8 @@
                                 aperiam ipsum!
                             </p>
 
-                            <a href="https://drive.google.com/your-file-link-here" target="_blank" rel="noopener noreferrer"
+                            <a href="https://drive.google.com/your-file-link-here" target="_blank"
+                                rel="noopener noreferrer"
                                 class="mt-3 inline-block bg-red-600 hover:bg-red-700 px-5 py-3 text-xs font-medium tracking-wide text-white uppercase rounded-lg">
                                 Lihat Detail
                             </a>
@@ -389,7 +392,8 @@
                                 aperiam ipsum!
                             </p>
 
-                            <a href="https://drive.google.com/your-file-link-here" target="_blank" rel="noopener noreferrer"
+                            <a href="https://drive.google.com/your-file-link-here" target="_blank"
+                                rel="noopener noreferrer"
                                 class="mt-3 inline-block bg-red-600 hover:bg-red-700 px-5 py-3 text-xs font-medium tracking-wide text-white uppercase rounded-lg">
                                 Lihat Detail
                             </a>
@@ -413,7 +417,8 @@
                                 aperiam ipsum!
                             </p>
 
-                            <a href="https://drive.google.com/your-file-link-here" target="_blank" rel="noopener noreferrer"
+                            <a href="https://drive.google.com/your-file-link-here" target="_blank"
+                                rel="noopener noreferrer"
                                 class="mt-3 inline-block bg-red-600 hover:bg-red-700 px-5 py-3 text-xs font-medium tracking-wide text-white uppercase rounded-lg">
                                 Lihat Detail
                             </a>
@@ -437,7 +442,8 @@
                                 aperiam ipsum!
                             </p>
 
-                            <a href="https://drive.google.com/your-file-link-here" target="_blank" rel="noopener noreferrer"
+                            <a href="https://drive.google.com/your-file-link-here" target="_blank"
+                                rel="noopener noreferrer"
                                 class="mt-3 inline-block bg-red-600 hover:bg-red-700 px-5 py-3 text-xs font-medium tracking-wide text-white uppercase rounded-lg">
                                 Lihat Detail
                             </a>
@@ -461,7 +467,8 @@
                                 aperiam ipsum!
                             </p>
 
-                            <a href="https://drive.google.com/your-file-link-here" target="_blank" rel="noopener noreferrer"
+                            <a href="https://drive.google.com/your-file-link-here" target="_blank"
+                                rel="noopener noreferrer"
                                 class="mt-3 inline-block bg-red-600 hover:bg-red-700 px-5 py-3 text-xs font-medium tracking-wide text-white uppercase rounded-lg">
                                 Lihat Detail
                             </a>
@@ -474,9 +481,10 @@
                     <a href="/produk"
                         class="w-50 flex items-center justify-center text-white font-semibold bg-red-600 p-3 rounded-lg shadow-md hover:bg-white hover:text-red-600 border border-red-600 transition">
                         <span class="mr-2">Selengkapnya</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                            </path>
                         </svg>
                     </a>
                 </div>
@@ -592,7 +600,7 @@
         </style>
     </section>
 
-    {{--Client Section --}}
+    {{-- Client Section --}}
     <section id="client"
         style="width: 100%; background-color: white; padding: 4rem 1rem; display: flex; flex-direction: column; align-items: center; justify-content: center;">
         <!-- Header -->
@@ -643,10 +651,18 @@
                     disableOnInteraction: false,
                 },
                 breakpoints: {
-                    0: { slidesPerView: 2 },
-                    640: { slidesPerView: 3 },
-                    768: { slidesPerView: 4 },
-                    1024: { slidesPerView: 5 },
+                    0: {
+                        slidesPerView: 2
+                    },
+                    640: {
+                        slidesPerView: 3
+                    },
+                    768: {
+                        slidesPerView: 4
+                    },
+                    1024: {
+                        slidesPerView: 5
+                    },
                 },
             });
         </script>
@@ -674,7 +690,7 @@
         </style>
     </section>
 
-    {{-- CTA Section--}}
+    {{-- CTA Section --}}
     <section id="cta">
         <div class="container">
             <div class="cta-grid">
