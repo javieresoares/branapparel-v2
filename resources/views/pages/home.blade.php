@@ -176,26 +176,29 @@
 
                 <ul class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                     <!-- Produk 1 -->
-                    <li>
-                        <div class="group relative block overflow-hidden border border-gray-100 bg-white">
-                            <div class="aspect-square w-full overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1599481238640-4c1288750d7a?auto=format&fit=crop&w=2664&q=80"
-                                    alt="Robot Toy"
-                                    class="w-full h-full object-cover transition duration-500 group-hover:scale-105" />
-                            </div>
-                            <div class="p-6">
-                                <h3 class="mt-4 text-lg font-medium text-gray-900">Robot Toy</h3>
-                                <p class="mt-1.5 text-sm text-gray-700">Start from $14.99</p>
-                                <div class="mt-4">
-                                    <button
-                                        class="block w-full rounded-sm bg-white p-3 text-red-600 text-md font-medium transition hover:bg-red-600 hover:text-white border border-red-600"
-                                        onclick="document.getElementById('modal').classList.remove('hidden')">
-                                        Preview
-                                    </button>
+                    @foreach ($produk as $item)
+                        <li>
+                            <div class="group relative block overflow-hidden border border-gray-100 bg-white">
+                                <div class="aspect-square w-full overflow-hidden">
+                                    <img src="{{ asset('storage/' . $item->gambar_produk) }}" alt="Robot Toy"
+                                        class="w-full h-full object-cover transition duration-500 group-hover:scale-105" />
+                                </div>
+                                <div class="p-6">
+                                    <h3 class="mt-4 text-lg font-medium text-gray-900">{{ $item->nama_produk }}</h3>
+                                    <p class="mt-1.5 text-sm text-gray-700">Start from Rp
+                                        {{ number_format($item->harga_produk, 0, ',', '.') }}</p>
+                                    <div class="mt-4">
+                                        <<button
+                                            class="block w-full rounded-sm bg-white p-3 text-red-600 text-md font-medium transition hover:bg-red-600 hover:text-white border border-red-600"
+                                            data-gambar="{{ asset('storage/' . $item->gambar_produk) }}"
+                                            data-harga="{{ number_format($item->harga_produk, 0, ',', '.') }}">
+                                            Preview
+                                            </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </li>
+                        </li>
+                    @endforeach
 
                     <!-- Produk 2 -->
                     <li>
@@ -272,38 +275,30 @@
                 </div>
 
                 <!-- Modal Preview -->
-                <div id="modal" class="hidden fixed flex inset-0 z-50 items-center justify-center backdrop-blur-sm">
+                <div id="modal" class="hidden fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
                     <div class="bg-white p-6 rounded-lg max-w-md w-full relative shadow-lg">
                         <button class="absolute top-2 right-2 text-gray-600 hover:text-red-600"
-                            onclick="document.getElementById('modal').classList.add('hidden')">
-                            ✕
-                        </button>
-                        <h2 class="text-xl font-bold mb-2">Robot Toy</h2>
+                            onclick="closeModal()">✕</button>
+                        <h2 id="modal-title" class="text-xl font-bold mb-2">Produk</h2>
 
-                        <div class="w-full aspect-square mb-3 rounded overflow-hidden relative">
-                            <img src="https://images.unsplash.com/photo-1599481238640-4c1288750d7a?auto=format&fit=crop&w=2664&q=80"
-                                alt="Robot Toy" class="w-full h-full object-cover" />
-
-                            <!-- Tombol navigasi gambar (non-fungsi di statis) -->
-                            <button
-                                class="absolute top-1/2 left-2 transform -translate-y-1/2 text-white text-3xl bg-black bg-opacity-50 hover:bg-opacity-75 rounded-full p-2"
-                                onclick="alert('Navigasi gambar tidak aktif di versi statis')">
+                        <div class="relative w-full aspect-square mb-3 rounded overflow-hidden">
+                            <img id="modal-image" src="" alt="Preview"
+                                class="w-full h-full object-cover transition-all duration-300" />
+                            <button onclick="prevImage()"
+                                class="absolute top-1/2 left-2 transform -translate-y-1/2 text-white text-3xl bg-black bg-opacity-50 hover:bg-opacity-75 rounded-full p-2">
                                 &lt;
                             </button>
-                            <button
-                                class="absolute top-1/2 right-2 transform -translate-y-1/2 text-white text-3xl bg-black bg-opacity-50 hover:bg-opacity-75 rounded-full p-2"
-                                onclick="alert('Navigasi gambar tidak aktif di versi statis')">
+                            <button onclick="nextImage()"
+                                class="absolute top-1/2 right-2 transform -translate-y-1/2 text-white text-3xl bg-black bg-opacity-50 hover:bg-opacity-75 rounded-full p-2">
                                 &gt;
                             </button>
                         </div>
 
-                        <p class="text-gray-700 font-semibold">$14.99</p>
-                        <p class="text-sm text-gray-600 mt-2">
-                            Mainan robot canggih dan menyenangkan untuk anak-anak.
-                        </p>
+                        <p id="modal-price" class="text-gray-700 font-semibold">$0.00</p>
+                        <p class="text-sm text-gray-600 mt-2">Detail produk yang menarik dan berkualitas.</p>
 
                         <div class="mt-4">
-                            <a href="https://drive.google.com" target="_blank" rel="noopener noreferrer"
+                            <a href="https://drive.google.com" target="_blank"
                                 class="w-full text-center px-4 py-2 bg-red-600 text-white font-normal rounded-lg hover:bg-red-700 transition block">
                                 Lihat Lebih Banyak
                             </a>
@@ -313,6 +308,41 @@
             </div>
         </div>
     </section>
+
+    {{-- Script Modal --}}
+    <script>
+        function openModal(index) {
+            currentProductIndex = index;
+            currentImageIndex = 0;
+
+            const modal = document.getElementById('modal');
+            const modalImage = document.getElementById('modal-image');
+            const modalTitle = document.getElementById('modal-title');
+            const modalPrice = document.getElementById('modal-price');
+
+            modalImage.src = produk[index].gambar[0];
+            modalTitle.innerText = produk[index].nama;
+            modalPrice.innerText = produk[index].harga;
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+        }
+
+        function nextImage() {
+            currentImageIndex = (currentImageIndex + 1) % produk[currentProductIndex].gambar.length;
+            document.getElementById('modal-image').src = produk[currentProductIndex].gambar[currentImageIndex];
+        }
+
+        function prevImage() {
+            currentImageIndex =
+                (currentImageIndex - 1 + produk[currentProductIndex].gambar.length) % produk[currentProductIndex].gambar
+                .length;
+            document.getElementById('modal-image').src = produk[currentProductIndex].gambar[currentImageIndex];
+        }
+    </script>
 
     {{-- Portofolio Section --}}
     <section id="portofolio">
@@ -326,29 +356,31 @@
             <div class="mx-auto max-w-screen-xl">
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <!-- Portofolio 1 -->
-                    <div class="group relative block">
-                        <div class="relative aspect-square">
-                            <img src="https://images.unsplash.com/photo-1593795899768-947c4929449d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2672&q=80"
-                                alt="" class="absolute inset-0 h-full w-full object-cover" />
+                    @foreach ($portfolio as $item)
+                        <div class="group relative block">
+                            <div class="relative aspect-square">
+                                <img src="{{ asset('storage/' . $item->gambar_portfolio) }}"
+                                    alt="{{ $item->nama_portfolio }}"
+                                    class="absolute inset-0 h-full w-full object-cover" />
+                            </div>
+
+                            <div class="absolute inset-0 flex flex-col items-start justify-end p-6">
+                                <h3 class="text-xl font-medium text-white">
+                                    {{ $item->nama_portfolio }}
+                                </h3>
+
+                                <p class="mt-1.5 text-xs text-pretty text-white">
+                                    {{ $item->deskripsi_portfolio }}
+                                </p>
+
+                                <a href="{{ $item->drive_portfolio ?? '#' }} target="_blank" rel="noopener noreferrer"
+                                    class="mt-3 inline-block bg-red-600 hover:bg-red-700 px-5 py-3 text-xs font-medium tracking-wide text-white uppercase rounded-lg">
+                                    Lihat Detail
+                                </a>
+                            </div>
                         </div>
+                    @endforeach
 
-                        <div class="absolute inset-0 flex flex-col items-start justify-end p-6">
-                            <h3 class="text-xl font-medium text-white">
-                                Skinny Jeans Blue
-                            </h3>
-
-                            <p class="mt-1.5 text-xs text-pretty text-white">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos sequi dicta impedit
-                                aperiam ipsum!
-                            </p>
-
-                            <a href="https://drive.google.com/your-file-link-here" target="_blank"
-                                rel="noopener noreferrer"
-                                class="mt-3 inline-block bg-red-600 hover:bg-red-700 px-5 py-3 text-xs font-medium tracking-wide text-white uppercase rounded-lg">
-                                Lihat Detail
-                            </a>
-                        </div>
-                    </div>
 
                     <!-- Portofolio 2 -->
                     <div class="group relative block">
@@ -499,17 +531,21 @@
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
                     <!-- Slide 1 -->
-                    <div class="swiper-slide">
-                        <div class="slide-content">
-                            <div class="slide-image">
-                                <img src="/assets/home1.jpg" alt="Gambar 1" />
-                            </div>
-                            <div class="slide-text">
-                                <h2>Judul Slide Pertama</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam, quidem.</p>
+                    @foreach ($galeri as $slide)
+                        <div class="swiper-slide">
+                            <div class="slide-content">
+                                <div class="slide-image">
+                                    <img src="{{ asset('storage/' . $slide->gambar_galeri) }}"
+                                        alt="{{ $slide->judul_galeri }}" />
+                                </div>
+                                <div class="slide-text">
+                                    <h2>{{ $slide->judul_galeri }}</h2>
+                                    <p>{{ $slide->deskripsi_galeri }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
+
 
                     <!-- Slide 2 -->
                     <div class="swiper-slide">
@@ -552,10 +588,6 @@
                     delay: 3000,
                     disableOnInteraction: false,
                 },
-                // pagination: {
-                //   el: ".swiper-pagination",
-                //   clickable: true,
-                // },
             });
         </script>
 
@@ -613,6 +645,15 @@
             <div class="swiper myClientSwiper">
                 <div class="swiper-wrapper">
                     <!-- Client Items -->
+                    @foreach ($client as $clientslide)
+                        <div class="swiper-slide">
+                            <div class="client-box flex flex-col items-center justify-center text-center">
+                                <img src="{{ asset('storage/' . $clientslide->gambar_client) }}"
+                                    alt="{{ $clientslide->nama_client }}" class="h-20 w-auto object-contain mb-2">
+                                <p class="text-sm font-semibold">{{ $clientslide->nama_client }}</p>
+                            </div>
+                        </div>
+                    @endforeach
                     <div class="swiper-slide">
                         <div class="client-box">Client A</div>
                     </div>
@@ -697,15 +738,10 @@
                 <!-- Text + Button Section -->
                 <div class="cta-left">
                     <div class="cta-content">
-                        <h2>Lorem, ipsum dolor sit amet consectetur adipisicing elit</h2>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et, egestas
-                            tempus tellus etiam sed. Quam a scelerisque amet ullamcorper eu enim
-                            et fermentum, augue. Aliquet amet volutpat quisque ut interdum
-                            tincidunt duis.
-                        </p>
+                        <h2>{{ $cta->judul_cta }}</h2>
+                        <p>{{ $cta->deskripsi_cta }}</p>
                         <div class="cta-button">
-                            <a href="https://wa.me/yourwhatsappnumber" class="cta-btn">
+                            <a href="https://wa.me/" class="cta-btn">
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
                                     alt="WhatsApp Logo" class="cta-icon" />
                                 <span>Pesan Sekarang</span>
@@ -716,10 +752,8 @@
 
                 <!-- Image Grid Section -->
                 <div class="cta-right">
-                    <img src="https://images.unsplash.com/photo-1621274790572-7c32596bc67f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=654&q=80"
-                        alt="" class="cta-image" />
-                    <img src="https://images.unsplash.com/photo-1567168544813-cc03465b4fa8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
-                        alt="" class="cta-image" />
+                    <img src="{{ asset('storage/' . $cta->gambar1_cta) }}" alt="Gambar 1" class="cta-image" />
+                    <img src="{{ asset('storage/' . $cta->gambar2_cta) }}" alt="Gambar 2" class="cta-image" />
                 </div>
             </div>
         </div>

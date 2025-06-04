@@ -26,6 +26,8 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+            ->brandName('Bran Apparel')
+            ->font('Poppins', 'sans-serif')
             ->login()
             ->colors([
                 'primary' => Color::Amber,
@@ -53,6 +55,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])
+        ;
     }
 }

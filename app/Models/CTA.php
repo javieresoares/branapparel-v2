@@ -1,0 +1,11 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class CTA extends Model
+{
+    //
+    protected $guarded = [];
+}
