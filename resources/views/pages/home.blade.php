@@ -50,7 +50,7 @@
                 <div class="mt-6">
                     <a href="{{ url('/company-profile') }}"
                         class="inline-block bg-red-600 hover:bg-white hover:text-red-600 border border-red-600
-                                                                                                                                    text-white font-semibold px-6 py-3 rounded-lg transition duration-300">
+                                                                                                                                        text-white font-semibold px-6 py-3 rounded-lg transition duration-300">
                         Lihat Company Profile
                     </a>
                 </div>
@@ -270,7 +270,7 @@
                     </a>
                 </div>
 
-                <!-- Modal Preview (hanya produk pertama & gambar pertama, statis) -->
+                <!-- Modal Preview -->
                 <div id="modal" class="hidden fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
                     <div class="bg-white p-6 rounded-lg max-w-md w-full relative shadow-lg">
                         <button class="absolute top-2 right-2 text-gray-600 hover:text-red-600"
