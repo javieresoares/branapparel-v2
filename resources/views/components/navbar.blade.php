@@ -1,11 +1,13 @@
 <header id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-white shadow-md">
     <div class="w-full px-6 sm:px-12 lg:px-24">
         <div class="max-w-screen-xl mx-auto flex h-22 items-center justify-between">
-            <a href="#hero" class="block md:hidden">
+            {{-- Logo Mobile --}}
+            <a href="{{ url('/') }}" class="block md:hidden">
                 <img src="{{ asset('assets/logo.png') }}" alt="Logo" class="h-10 w-auto">
             </a>
 
-            <a href="#hero" class="hidden md:block text-2xl lg:text-3xl font-bold whitespace-nowrap">
+            {{-- Logo Desktop --}}
+            <a href="{{ url('/') }}" class="hidden md:block text-2xl lg:text-3xl font-bold whitespace-nowrap">
                 <span class="text-red-600">Bran</span>
                 <span class="text-black">Apparel</span>
             </a>
@@ -17,11 +19,11 @@
                         $navItems = [
                             ['path' => '/', 'label' => 'Home'],
                             [
-                                'path' => '/tentangkami',
+                                'path' => '/tentang-kami',
                                 'label' => 'Tentang Kami',
                                 'submenu' => [
-                                    ['path' => '/TentangKami', 'label' => 'Tentang Kami'],
-                                    ['path' => '/TentangKami/company-profile', 'label' => 'Company Profile'],
+                                    ['path' => '/tentang-kami', 'label' => 'Tentang Kami'],
+                                    ['path' => '/company-profile', 'label' => 'Company Profile'],
                                 ]
                             ],
                             [
@@ -35,14 +37,20 @@
                             ['path' => '/portofolio', 'label' => 'Portofolio'],
                             ['path' => '/blog', 'label' => 'Blog'],
                             ['path' => '/faq', 'label' => 'FAQ'],
-                            ['path' => '/KontakKami', 'label' => 'Kontak Kami'],
+                            ['path' => '/kontak-kami', 'label' => 'Kontak Kami'],
+                            ['path' => '/karir', 'label' => 'Karir'],
                         ];
                     @endphp
 
                     @foreach($navItems as $item)
                         <li class="relative group">
+                            @php
+                                $isActive = Request::is(ltrim($item['path'], '/')) || Request::is(ltrim($item['path'], '/') . '/*');
+                            @endphp
+
                             <a href="{{ url($item['path']) }}"
-                                class="border-b-2 border-transparent pb-2 lg:pb-3 hover:border-gray-400 transition">
+                                class="border-b-2 pb-2 lg:pb-3 transition 
+                                            {{ $isActive ? 'text-red-600 border-red-600' : 'border-transparent hover:border-gray-400' }}">
                                 {{ $item['label'] }}
                             </a>
 
@@ -88,8 +96,12 @@
             <ul class="flex flex-col gap-4 text-base text-left">
                 @foreach($navItems as $item)
                     <li>
+                        @php
+                            $isActive = Request::is(ltrim($item['path'], '/')) || Request::is(ltrim($item['path'], '/') . '/*');
+                        @endphp
+
                         <a href="{{ url($item['path']) }}" onclick="closeSidebar()"
-                            class="block py-2 border-b-2 border-transparent hover:border-gray-300">
+                            class="block py-2 border-b-2 {{ $isActive ? 'text-red-600 border-red-600' : 'border-transparent hover:border-gray-300' }}">
                             {{ $item['label'] }}
                         </a>
 
